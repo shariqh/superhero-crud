@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,4 +17,7 @@ public class Villain {
 
     @Column(unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "villain")
+    private List<Threat> threats;
 }

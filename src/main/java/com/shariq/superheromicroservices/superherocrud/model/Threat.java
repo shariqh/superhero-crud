@@ -19,4 +19,8 @@ public class Threat {
 
     @OneToOne(mappedBy = "threat")
     private Hero hero;
+
+    @ManyToOne
+    @JoinColumn(name = "villain_id")
+    private Villain villain;
 }
