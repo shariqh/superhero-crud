@@ -12,12 +12,17 @@ import java.util.List;
 public class Villain {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="villain_id")
     private Long Id;
 
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "villain")
+    @OneToMany(mappedBy = "villain", cascade = CascadeType.PERSIST)
     private List<Threat> threats;
+
+    public Villain(String name) {
+        this.name = name;
+    }
 }

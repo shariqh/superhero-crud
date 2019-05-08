@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Threat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
     @Column(unique = true)
@@ -23,4 +23,14 @@ public class Threat {
     @ManyToOne
     @JoinColumn(name = "villain_id")
     private Villain villain;
+
+    public Threat(String name, Villain villain) {
+        this.name = name;
+        this.villain = villain;
+    }
+
+    public Threat(String name, Hero hero) {
+        this.name = name;
+        this.hero = hero;
+    }
 }

@@ -6,4 +6,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface ThreatRepo extends JpaRepository<Threat,Long> {
+
+    Threat findThreatByName(String name);
+
 }

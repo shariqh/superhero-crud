@@ -6,4 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface VillainRepo extends JpaRepository<Villain, Long> {
+
+    Villain findVillainByName(String name);
 }

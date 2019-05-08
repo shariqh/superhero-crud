@@ -20,4 +20,8 @@ public class Hero {
     @OneToOne
     @JoinColumn(name = "threat_id")
     private Threat threat;
+
+    public Hero(String name) {
+        this.name = name;
+    }
 }
