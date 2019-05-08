@@ -43,8 +43,7 @@ public class InitialLoader {
 
         villainRepo.save(newVillain);
 
-        Threat currentThreat = threatRepo.findThreatByName("Earthquake");
-        newHero.setThreat(currentThreat);
+        newHero.setThreat(threatRepo.findThreatByName("Earthquake"));
 
         heroRepo.save(newHero);
 

@@ -19,7 +19,7 @@ public class Villain {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "villain", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "villain", cascade = CascadeType.ALL)
     private List<Threat> threats;
 
     public Villain(String name) {
