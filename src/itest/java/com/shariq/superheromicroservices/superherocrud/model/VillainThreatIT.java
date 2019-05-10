@@ -1,25 +1,30 @@
 package com.shariq.superheromicroservices.superherocrud.model;
 
+import com.shariq.superheromicroservices.superherocrud.repository.ThreatRepo;
 import com.shariq.superheromicroservices.superherocrud.repository.VillainRepo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@DirtiesContext
 public class VillainThreatIT {
 
     @Autowired
     private VillainRepo villainRepo;
+
+    @Autowired
+    private ThreatRepo threatRepo;
 
     @Test
     public void villainSavesThreats() {
@@ -34,7 +39,9 @@ public class VillainThreatIT {
         newVillain.setThreats(threatList);
 
         Villain updatedVillain = villainRepo.save(newVillain);
+        Villain savedThreatVillainAssociation = threatRepo.findThreatByName("threat1").getVillain();
 
-        assertThat(updatedVillain.getThreats()).hasSize(2);
+        assertThat("updatedVillain did not have two threats", updatedVillain.getThreats(), hasSize(2));
+        assertThat("saved threats did not have villain association", savedThreatVillainAssociation.getName(), equalTo("villain1"));
     }
 }
