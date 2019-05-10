@@ -4,19 +4,37 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'idea'
 
 group = 'com.shariq.superheromicroservices'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
+sourceSets {
+	itest
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	itestImplementation.extendsFrom implementation
+	itestRuntime.extendsFrom runtime
 }
 
 repositories {
 	mavenCentral()
+}
+
+idea {
+	module {
+		testSourceDirs += project.sourceSets.itest.java.srcDirs
+		testSourceDirs += project.sourceSets.itest.resources.srcDirs
+
+		// put our custom test dependencies onto IDEA's TEST scope
+		// Ref: https://docs.gradle.org/current/dsl/org.gradle.plugins.ide.idea.model.IdeaModule.html
+		scopes.TEST.plus += [configurations.itestCompileClasspath]
+	}
 }
 
 dependencies {
@@ -27,5 +45,20 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	itestImplementation 'com.h2database:h2'
+	itestImplementation 'org.springframework.boot:spring-boot-starter-test'
+	itestImplementation 'org.easytesting:fest-assert:1.4'
+
+	itestImplementation sourceSets.main.output
+	itestRuntime configurations.runtime
 }
+
+task itest(type: Test, group: 'Verification') {
+	testClassesDirs = sourceSets.itest.output.classesDirs
+	classpath = sourceSets.itest.runtimeClasspath
+}
+
+tasks.check.dependsOn itest
