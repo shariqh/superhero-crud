@@ -18,7 +18,9 @@ public class Hero {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "threat_id")
+    @JoinTable(name = "hero_threat",
+            joinColumns = { @JoinColumn(name = "hero_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "threat_id", referencedColumnName = "id") })
     private Threat threat;
 
     public Hero(String name) {

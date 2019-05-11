@@ -28,9 +28,4 @@ public class Threat {
         this.name = name;
         this.villain = villain;
     }
-
-    public Threat(String name, Hero hero) {
-        this.name = name;
-        this.hero = hero;
-    }
 }

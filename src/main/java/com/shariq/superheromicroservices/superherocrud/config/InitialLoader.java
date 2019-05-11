@@ -7,6 +7,7 @@ import com.shariq.superheromicroservices.superherocrud.repository.HeroRepo;
 import com.shariq.superheromicroservices.superherocrud.repository.ThreatRepo;
 import com.shariq.superheromicroservices.superherocrud.repository.VillainRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Profile("local")
 public class InitialLoader {
 
     final private HeroRepo heroRepo;

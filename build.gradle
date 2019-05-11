@@ -56,6 +56,18 @@ dependencies {
 	itestRuntime configurations.runtime
 }
 
+bootRun {
+	systemProperty 'spring.profiles.active', 'local'
+	
+	// could also use the following line:
+	// args = ["--spring.profiles.active=local"]
+}
+
+test {
+	// cannot use "args" like in bootRun
+	systemProperty 'spring.profiles.active', 'test'
+}
+
 task itest(type: Test, group: 'Verification') {
 	testClassesDirs = sourceSets.itest.output.classesDirs
 	classpath = sourceSets.itest.runtimeClasspath
