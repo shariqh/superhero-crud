@@ -50,8 +50,6 @@ dependencies {
 
 	itestImplementation 'com.h2database:h2'
 	itestImplementation 'org.springframework.boot:spring-boot-starter-test'
-	itestImplementation 'org.easytesting:fest-assert:1.4'
-
 	itestImplementation sourceSets.main.output
 	itestRuntime configurations.runtime
 }
