@@ -11,7 +11,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#.jar - can't exclude for heroku
 *.war
 *.nar
 *.ear
