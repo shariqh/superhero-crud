@@ -1,1 +1,1 @@
-web: java -jar build/libs/superhero-crud-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+web: java -jar build/libs/superhero-crud-0.0.1-SNAPSHOT.jar --spring.profiles.active=cloud
