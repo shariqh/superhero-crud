@@ -1,0 +1,6 @@
+spring:
+  profiles: cloud
+
+---
+spring:
+  profiles: test, local
