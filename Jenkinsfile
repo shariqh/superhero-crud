@@ -1,7 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('build') {}
         stage('unit-test') {
             when {
                 expression {
