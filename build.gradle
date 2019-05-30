@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.1.4.RELEASE'
 	id 'java'
+	id "com.palantir.docker" version "0.22.1"
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -8,7 +9,7 @@ apply plugin: 'idea'
 
 group = 'com.shariq.superheromicroservices'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = 1.8
 
 sourceSets {
 	itest
@@ -54,6 +55,7 @@ dependencies {
 	itestRuntime configurations.runtime
 }
 
+// tag::task[]
 bootRun {
 	systemProperty 'spring.profiles.active', 'local'
 	
@@ -71,4 +73,18 @@ task itest(type: Test, group: 'Verification') {
 	classpath = sourceSets.itest.runtimeClasspath
 }
 
+task unpack(type: Copy) {
+	dependsOn bootJar
+	from(zipTree(tasks.bootJar.outputs.files.singleFile))
+	into("build/dependency")
+}
+
+docker {
+	name "shariqhirani/${rootProject.name}"
+	copySpec.from(tasks.unpack.outputs).into("dependency")
+	buildArgs(['DEPENDENCY': "dependency"])
+}
+// end::task[]
+
 tasks.check.dependsOn itest
+tasks.docker.dependsOn build
